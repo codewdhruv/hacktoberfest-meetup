@@ -5,7 +5,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 import "./PriceConverter.sol";
-    error NotOwner();
+    error Fundme__NotOwner();
 contract Fundme{
 
     using PriceConverter for uint256;
@@ -57,7 +57,7 @@ contract Fundme{
         // require(msg.sender==owner,"sender is not owner");
         //The below code is custome error and it is more code efficient
         if(msg.sender !=owner ){
-            revert NotOwner();
+            revert Fundme__NotOwner();
         }
         _;
     }
