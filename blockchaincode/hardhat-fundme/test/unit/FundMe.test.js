@@ -65,11 +65,55 @@ describe("Fundme",async function(){
             const endingDeployerBalance=await fundMe.provider.getBalance(deployer) 
             //Assert
             //gasCost
-
+ 
             assert.equal(endingFundmeBalance,0)
             assert.equal(startingFundMeBalance.add(startingDeployerBalance).toString()
             ,endingDeployerBalance.add(gasCost).toString())//here we need to use the add function to add the numbers as the numbers are very big number so it can't be done by the + sign
          //here we need to add gasCost with endingBalance because there are some gasPrice included when the the deployer balance is withdrawn and deployed so we need to add this to make it equal
+        })
+        it("allow us to withdraw the multiple funders",async function(){
+            //arrange
+            const accounts=await ethers.getSigners();
+            for (let i = 1; i < 6; i++) {
+                const fundMeConnectedContract=await fundMe.connect(
+                    accounts[i]
+                )
+                await fundMeConnectedContract.fund({value:sendValue})
+            }
+               //Act
+               const transactionResponse=await fundMe.withdraw()
+               const transactionRecipt=await transactionResponse.wait(1);
+   
+               //The transaction Recipt contains the gas cost so we can grab this from that
+               //Fetching them from it
+               const startingFundMeBalance=await fundMe.provider.getBalance(fundMe.address)
+               const startingDeployerBalance=await fundMe.provider.getBalance(deployer) 
+               const {gasUsed,effectiveGasPrice}=transactionRecipt;
+               const gasCost=gasUsed.mul(effectiveGasPrice)
+
+            //Assert
+            const endingFundmeBalance=await fundMe.provider.getBalance(fundMe.address);
+            const endingDeployerBalance=await fundMe.provider.getBalance(deployer) 
+           
+       
+            assert.equal(
+                startingFundMeBalance
+                    .add(startingDeployerBalance)
+                    .toString(),
+                endingDeployerBalance.add(gasCost).toString()
+            )
+
+            //make sure the funders are reset properly
+            await expect(fundMe.funders(0)).to.be.reverted;
+            for(let i=1;i<6;i++){
+                assert.equal(await fundMe.addressToAmountFunded(accounts[i].address),0)
+            }
+        })
+        it("Only allow the owner to withdraw",async function(){
+            const accounts=await ethers.getSigners();
+            const attacker=accounts[1];
+            const attackerConnectedContract=await fundMe.connect(attacker);
+            await expect(attackerConnectedContract.withdraw()).to.be.reverted
         })
     })
 })
