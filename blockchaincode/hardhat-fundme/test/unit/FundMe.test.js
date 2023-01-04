@@ -1,7 +1,11 @@
 const { assert,expect } = require('chai')
-const {deployments, ethers, getNamedAccounts}=require('hardhat')
-
-describe("Fundme",async function(){
+const {deployments, ethers, getNamedAccounts,network}=require('hardhat')
+const {developmentChains}=require('../../helper-hardhat-config');
+//That below code refers that  we can run this testing on the local chain not in the 
+//testnet chain 
+!developmentChains.includes(network.name) 
+? describe.skip
+:describe("Fundme",async function(){
     let fundMe
     let deployer
     let mockV3Aggregator

@@ -1,8 +1,8 @@
 const { assert } = require('chai');
 const {getNamedAccounts,ethers, network}=require('hardhat');
 const {developmentChains}=require('../../helper-hardhat-config');
-//That below code refers that the we can run this testing on the local chain not in the 
-//development chain so it tails that when it is local chain just skip it otherwise just test it
+//That below code refers that the we can run this testing on the Testnet chain not in the 
+//local chain
 developmentChains.includes(network.name) 
 ? describe.skip
 : describe("FundMe",async function(){
