@@ -63,6 +63,29 @@ async function fund(){
 
 }
 
+async function withdraw(){
+  if (typeof window.ethereum !== "undefined") {
+    const provider=new ethers.providers.Web3Provider(window.ethereum)
+   const signer=provider.getSigner();
+   const contract=new ethers.Contract(contractAddress,abi,signer);
+   try{
+   const transactionResponse=await contract.withdraw()
+   //listen for the tx to be mined
+   //listen for an event <- we haven't learnet about yet!
+   //hey wait for the transaction to be mined
+   await listenForTransaction(transactionResponse,provider)
+   console.log('Done!')
+   }
+   catch(error){
+    console.log(error)
+   }
+  }
+  else{
+
+  }
+}
+
+
 function listenForTransaction(transactionResponse,provider){
     console.log(`Mining ${transactionResponse.hash}....`)
     //listen for the transaction to finish
@@ -85,3 +108,5 @@ function listenForTransaction(transactionResponse,provider){
 fundBtn.addEventListener('click',fund)
 let getBalanceBtn=document.getElementById('getBalanceBtn');
 getBalanceBtn.addEventListener('click',getBalance)
+let withdrawBalanceBtn=document.getElementById('withdrawBalanceBtn');
+withdrawBalanceBtn.addEventListener('click',withdraw)
