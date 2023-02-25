@@ -1,0 +1,4 @@
+-One for the smart contracts
+- One for the frontend / website
+
+Full Stack= Smart Contracts (Backend)+(Frontend)=> {HTML+JS+CSS Basic website}
