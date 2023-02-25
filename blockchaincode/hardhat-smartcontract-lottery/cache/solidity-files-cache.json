@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/home/souvik/Blockchaincode/hacktoberfest-meetup/blockchaincode/hardhat-smartcontract-lottery/contracts/Raffle.sol": {
-      "lastModificationDate": 1673416147416,
+      "lastModificationDate": 1677275512274,
       "contentHash": "364a31ff7cc831f4cbb20c6bc77f8dc9",
       "sourceName": "contracts/Raffle.sol",
       "solcConfig": {
@@ -302,6 +302,48 @@
         "^0.8.0"
       ],
       "artifacts": []
+    },
+    "/home/souvik/Blockchaincode/hacktoberfest-meetup/blockchaincode/hardhat-smartcontract-lottery/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1673284852178,
+      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.7",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "devdoc",
+                "userdoc",
+                "storageLayout",
+                "evm.gasEstimates"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          },
+          "metadata": {
+            "useLiteralContent": true
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">= 0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
     }
   }
 }
